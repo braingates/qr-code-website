@@ -90,9 +90,7 @@
 }
 
 .about-section.active {
-    display: flex;
-     padding: 30px;
-      
+    display: block;
 }
 .about-container {
     display: flex;
@@ -100,8 +98,10 @@
     flex-wrap: wrap;
     background-color: #ffffff;
     height: fit-content;
-    width: fit-content;
-    padding: 10px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
     text-align: center;
     align-items: center;
     font-family: arial;
@@ -116,30 +116,31 @@
 .about-features {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 100%;
     gap: 20px;
     padding: 10px;
     background-color: transparent;
     align-items: center;
     justify-content: center;
     place-content: center;
-    margin: 20px;
-    width: 100%;
+    margin: 20px auto;
 }
 .feature-box {
-    display: inline;
+    display: flex;
     background-color: rgba(241, 143, 6, 0.9);
     box-shadow: 0 0 5px rgb(38, 37, 37);
-    height: 70px;
-    width: 250px;
-    padding: 10px 30px;
+    height: auto;
+    width: 100%;
+    max-width: 250px;
+    padding: 15px 30px;
     align-items: center;
+    justify-content: center;
     text-align: center;
     color: black;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     transition: all 0.3s ease-in-out;
-    
+    min-height: 70px;
 }
 
 .feature-box:hover {
@@ -149,14 +150,15 @@
     box-shadow: 0 0 8px rgb(43, 42, 42);
 }
 .about-mission {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     height: fit-content;
-    padding: 10px;
+    padding: 20px;
     background-color: rgb(236, 146, 11);
     border-radius: 8px;
     box-shadow: 0 0 5px rgb(37, 36, 36);
     cursor: pointer;
-    margin: 20px;
+    margin: 20px auto;
     transition: all 0.3s ease-in-out;
 }
 .about-mission:hover {
@@ -166,9 +168,17 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 40px 20px;
-    line-height: 30px;
+    padding: 20px;
+    line-height: 1.8;
     cursor: pointer;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.about-text p {
+    margin-bottom: 15px;
 }
 /* commented out for now, will add fade in animation later */
 .hidden {
@@ -223,15 +233,32 @@
     }
     .about-container {
         display: flex;
-        margin: 20px;
+        flex-direction: column;
+        margin: 20px auto;
+        padding: 30px 15px;
     }
     .about-text {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-   
-    
-}
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 15px;
+        font-size: 15px;
+    }
+    .about-features {
+        flex-direction: column;
+        gap: 15px;
+        margin: 15px auto;
+    }
+    .feature-box {
+        max-width: 100%;
+        font-size: 15px;
+        padding: 12px 20px;
+    }
+    .about-mission {
+        max-width: 100%;
+        padding: 15px;
+        margin: 15px auto;
+    }
     .nav-menu.active {
         display: flex;
     }
@@ -309,13 +336,8 @@
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
-              .about-container {
-    display: flex;  
-    flex-direction: column;
-    margin: 20px;
-     padding: 20px;               
         }
-        }
+
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -346,12 +368,6 @@
     
     
 }
-            .about-container {
-    display: flex;  
-    flex-direction: column;
-    margin: 20px;
-     padding: 20px;               
-        }
         }
 
         @media (max-width: 360px) {
@@ -368,22 +384,23 @@
                 margin-bottom: 20px;
             }
             .about-text {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            
-            
-        }
-               .about-container {
-                      display: block;
-                      padding: 40px;
-        }
-        .about-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-     padding: 20px;          
-        }
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                padding: 10px;
+                font-size: 13px;
+            }
+            .about-container {
+                display: flex;
+                flex-direction: column;
+                margin: 10px auto;
+                padding: 15px 10px;
+            }
+            .feature-box {
+                font-size: 12px;
+                padding: 8px 12px;
+                min-height: 55px;
+            }
         }
 
         .form-section {
@@ -446,12 +463,6 @@
                 flex: 1;
                 min-width: 120px;
             }
-             .about-container {
-    display: flex;  
-    flex-direction: column;
-    margin: 20px;
-     padding: 20px;               
-        }
         }
 
         @media (max-width: 480px) {
@@ -464,19 +475,34 @@
                 font-size: 0.85em;
                 min-width: 100px;
             }
-                .about-text {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    
-    
-}
-        }
-        .about-container {
-    display: flex;  
-    flex-direction: column;
-    margin: 20px;
-     padding: 20px;          
+            .about-container {
+                padding: 20px 10px;
+                margin: 10px auto;
+            }
+            .about-text {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                padding: 10px;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .about-text p {
+                margin-bottom: 12px;
+            }
+            .feature-box {
+                font-size: 13px;
+                padding: 10px 15px;
+                min-height: 60px;
+            }
+            .about-mission {
+                padding: 12px;
+                margin: 10px auto;
+            }
+            .about-mission h2 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -485,12 +511,6 @@
                 font-size: 0.8em;
                 min-width: 80px;
             }
-               .about-container {
-    display: flex;  
-    flex-direction: column;
-    margin: 20px;
-     padding: 20px;               
-        }
         }
 
         .tab-content {
@@ -1984,11 +2004,9 @@ footer {
     background: #f0f8ff;
     padding: 20px;
     border-radius: 8px;
-    margin: 30px;
+    margin-top: 100px;
     text-align: center;
     background-color: white;
-       width: fit-content;
-     
 }
 .contact-icons {
     display: flex;
