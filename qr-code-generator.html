@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online QR Code And Link Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <link rel="stylesheet" href="styles.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5288549579946539"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <img src="logo-2.png" alt="QR Generator">
+        </div>
+
+        <div class="nav-toggle" id="navToggle">
+            ☰
+        </div>
+
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home" id="homeNav">Home</a></li>
+            <li><a href="#link-tab">Generate QR Code</a></li>
+            <li><a href="#linkgen-tab">Generate Link</a></li>
+            <li><a href="#scanner-tab">Scan QR Code</a></li>
+            <li><a href="#share" id="shareNav">Share</a></li>
+            <li><a href="#aboutSection" id="aboutBtn">About</a></li>
+            
+        </ul>
+    </div>
+</nav>
+
+<main class="main-content">
+    <div class="container">
+        <h1> QR Code Generator</h1>
+        <p class="subtitle">Generate QR codes for links, text, photos, and files.
+          Generate links for your contents, products, or services.</p>
+        
+
+        <div class="content">
+            <!-- Form Section -->
+            <div class="form-section">
+                <!-- Input Tabs -->
+                <div class="input-tabs">
+                    <button class="tab-btn active" data-tab="link">Link</button>
+                    <button class="tab-btn" data-tab="text">Text</button>
+                    <button class="tab-btn" data-tab="file">File</button>
+                    <button class="tab-btn" data-tab="scanner">Scan QR Code</button>
+                    <button class="tab-btn" data-tab="linkgen">Link Generator</button>
+                </div>
+
+                <!-- Link Tab -->
+                <div class="tab-content active" id="link-tab">
+                    <div class="form-group">
+                        <label for="urlInput">Enter URL:</label>
+                        <input type="url" id="urlInput" placeholder="https://example.com" />
+                    </div>
+                    <p class="info-text">💡 Tip: Enter any website URL to generate a QR code that links to it.</p>
+                </div>
+
+                <!-- Text Tab -->
+                <div class="tab-content" id="text-tab">
+                    <div class="form-group">
+                        <label for="textInput">Enter Text:</label>
+                        <textarea id="textInput" placeholder="Enter any text or information..."></textarea>
+                    </div>
+                    <p class="info-text">💡 Tip: You can encode any text, email addresses, phone numbers, WiFi details, etc.</p>
+                </div>
+
+                <!-- File Tab -->
+                <div class="tab-content" id="file-tab">
+                    <div class="form-group">
+                        <label for="fileInput">Upload File:</label>
+                        <input type="file" id="fileInput" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fileDescription">File Description (Optional):</label>
+                        <input type="text" id="fileDescription" placeholder="Your file description" />
+                    </div>
+                    <p class="info-text">💡 Tip: QR codes store file metadata (name, size). The actual file can be shared separately.</p>
+                </div>
+
+                <!-- Scanner Tab -->
+                <div class="tab-content" id="scanner-tab">
+                    <div class="scanner-options">
+                        <button class="scanner-btn active" data-scanner="upload" onclick="switchScannerMode('upload')">📤 Upload Image</button>
+                        <button class="scanner-btn" data-scanner="camera" onclick="switchScannerMode('camera')">📷 Use Camera</button>
+                    </div>
+
+                    <!-- Upload Scanner -->
+                    <div class="form-group" id="uploadScanner">
+                        <label for="scanImageInput">Select QR Code Image:</label>
+                        <input type="file" id="scanImageInput" accept="image/*" onchange="scanQRFromImage()" />
+                    </div>
+
+                    <!-- Camera Scanner -->
+                    <div id="cameraContainer">
+                        <label>Position QR code in front of camera</label>
+                        <video id="video" autoplay playsinline></video>
+                        <div class="camera-controls">
+                            <button class="btn-start-camera" onclick="startCamera()">🎥 Start Camera</button>
+                            <button class="btn-stop-camera" onclick="stopCamera()">⏹️ Stop Camera</button>
+                        </div>
+                    </div>
+
+                    <!-- Scan Result -->
+                    <div class="scanner-result" id="scannerResult">
+                        <div class="result-label">✓ QR Code Detected!</div>
+                        <div class="result-value" id="scannedData"></div>
+                        
+                        <!-- File Preview Container -->
+                        <div class="file-preview-container" id="filePreviewContainer">
+                            <div id="filePreview"></div>
+                            <div class="file-info" id="fileInfo"></div>
+                            <button class="btn-download-scan" id="downloadScanBtn" onclick="downloadScannedFile()">📥 Download File</button>
+                        </div>
+                        
+                        <div class="result-action">
+                            <button class="btn-copy" onclick="copyScanResult()">📋 Copy</button>
+                            <button class="btn-open hidden" id="openBtn" onclick="openScanResult()">🔗 Open Link</button>
+                            <button class="btn-download-content hidden" id="downloadContentBtn" onclick="downloadScanContent()">📥 Download Content</button>
+                        </div>
+                    </div>
+
+                    <p class="info-text">💡 Tip: Upload an image with a QR code or use your camera to scan and decode QR codes instantly.</p>
+                </div>
+
+                <!-- Link Generator Tab -->
+                <div class="tab-content" id="linkgen-tab">
+                    <div class="form-group">
+                        <label for="linkFileInput">Select File to Share:</label>
+                        <input type="file" id="linkFileInput" />
+                    </div>
+                    <div class="form-group">
+                        <label for="linkName">Link Name (Optional):</label>
+                        <input type="text" id="linkName" placeholder="e.g., My Document" />
+                    </div>
+                    <div class="form-group">
+                        <label for="linkExpiry">Set Expiration (Optional):</label>
+                        <select id="linkExpiry">
+                            <option value="never">Never Expire</option>
+                            <option value="1hour">1 Hour</option>
+                            <option value="24hours">24 Hours</option>
+                            <option value="7days">7 Days</option>
+                            <option value="30days">30 Days</option>
+                            <option value="custom">Custom Date</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden" id="customDateGroup">
+                        <label for="customDate">Choose Date:</label>
+                        <input type="date" id="customDate" />
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="linkPassword" />
+                            Protect with Password
+                        </label>
+                    </div>
+                    <div class="form-group hidden" id="passwordGroup">
+                        <label for="linkPasswordInput">Enter Password:</label>
+                        <input type="password" id="linkPasswordInput" placeholder="Leave blank to auto-generate" />
+                    </div>
+                    <button class="btn-generate" onclick="generateShareLink()" style="width: 100%;">🔗 Generate Share Link</button>
+                    <p class="info-text">💡 Tip: Create secure, shareable links for any file type with optional expiration and password protection.</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-group" id="actionButtonGroup">
+                    <button class="btn-generate" onclick="generateQRCode()">Generate QR Code</button>
+                    <button class="btn-clear" onclick="clearAll()">Clear</button>
+                </div>
+
+                <!-- Messages -->
+                <div id="errorMessage" class="error-message message"></div>
+                <div id="successMessage" class="success-message message"></div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section">
+                <h2 style="color: #333; width: 100%; text-align: center;">Preview</h2>
+                <div class="qr-container" id="qrContainer">
+                    <p class="qr-placeholder">Your QR code will appear here</p>
+                </div>
+                <button class="btn-download hidden" id="downloadBtn" onclick="downloadQRCode()">📥 Download QR Code</button>
+                <p class="copy-info">✓ Click the button above to download your QR code as PNG</p>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">🔐 Enter Password</div>
+            <div class="modal-form">
+                <input type="password" class="modal-input" id="passwordInput" placeholder="Enter password" />
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-btn-primary" onclick="verifyPassword()">Unlock</button>
+                    <button class="modal-btn modal-btn-secondary" onclick="cancelDownload()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Page -->
+    <div class="download-page" id="downloadPage">
+        <div class="download-container">
+            <div class="download-icon">📥</div>
+            <div class="download-title">File Ready for Download</div>
+            <div class="download-filename" id="downloadFilename"></div>
+            <div class="download-size" id="downloadSize"></div>
+            <div id="downloadError"></div>
+            <div id="downloadExpired"></div>
+            <div class="download-buttons">
+                <button class="btn-download-now" id="downloadButton" onclick="performDownload()">Download File</button>
+                <button class="btn-back-to-generator" onclick="backToGenerator()">Back to Generator</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHARE SECTION (HIDDEN) -->
+<section id="shareSection" class="about-section hidden">
+    <div class="about-container">
+        <h1>Share This Page</h1>
+        <p class="subtitle">Share this QR tool with others through these options.</p>
+        <div class="share-buttons">
+            <button class="btn-generate" onclick="copyCurrentLink()">📋 Copy Link</button>
+            <button class="btn-generate" onclick="shareWithWebAPI()">🔗 Use Web Share</button>
+            <button class="btn-generate" onclick="openShareTarget('twitter')">🐦 Twitter</button>
+            <button class="btn-generate" onclick="openShareTarget('facebook')">📘 Facebook</button>
+            <button class="btn-generate" onclick="openShareTarget('email')">✉️ Email</button>
+        </div>
+        <button class="btn-clear" onclick="closeShareSection()">Close</button>
+    </div>
+</section>
+
+    <!-- ABOUT SECTION (HIDDEN) -->
+<section id="aboutSection" class="about-section">
+    <div class="about-container">
+
+        <h1>About Us</h1>
+        <p class="subtitle">Smart QR solutions for modern digital sharing</p>
+
+        <div class="about-content">
+          <button id="backBtn" class="btn-generate">← Back to Home</button>
+            <div class="about-text">
+              
+                <p>
+                    Our website offers a powerful and free QR Code Generator, Link Generator, 
+                    and QR Code Scanner—all in one easy-to-use online platform. 
+                    Whether you want to create QR codes for links, text, or files, generate shareable links, or scan QR codes instantly, our tools provide a fast, secure, and reliable solution.
+                </p>
+
+                <p>
+                    With our free QR code generator, you can quickly convert URLs, text,
+                     and other data into high-quality QR codes that work across all devices.
+                      The process is simple, requires no downloads, and delivers accurate results in seconds, making it ideal for personal, business, and professional use.
+                </p>
+                <p>
+                    Our online link generator allows you to create clean 
+                    and shareable links effortlessly. This feature is perfect for sharing
+                     files, websites, or important information in a structured and accessible way. When combined with QR codes, it enhances digital sharing and improves user convenience.
+                </p>
+                <p>
+                    The QR code scanner enables real-time scanning using your device’s
+                     camera or uploaded images. It provides instant decoding of QR codes,
+                     allowing users to access links, text, and data quickly and efficiently.
+                </p>
+                <p>
+                    This platform is fully responsive and optimized for mobile,
+                     tablet, and desktop devices, ensuring a seamless experience anywhere. All services are completely free, with no hidden fees or subscriptions,
+                     making it one of the best free QR code tools available online.
+                </p>
+
+                <p>
+                  If you are looking for a reliable QR code generator online, a fast QR code scanner, or an efficient link generator,
+                   our platform provides everything you need in one place.
+                </p>
+            </div>
+
+            <div class="about-features">
+                <div class="feature-box">⚡ Fast QR Generation</div>
+                <div class="feature-box">📷 Live Scanner</div>
+                <div class="feature-box">🔐 Secure Sharing</div>
+                <div class="feature-box">📱 Responsive Design</div>
+            </div>
+        </div>
+
+        <div class="about-mission">
+            <h2>Our Mission</h2>
+            <p>
+                To make digital sharing simple, fast, and secure for everyone.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+</main>
+    <footer>
+        <div>
+     <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms & Conditions</a>|
+    <a href="disclaimer.html">Disclaimer</a> |
+    <a href="cookie.html">Cookie Policy</a>
+
+        </div> 
+        <div class="contact-icons">
+            <a href="mailto:braingate84@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+            <a href="https://wa.me/+233506932474" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <!-- -->  <a href="https://t.me/+233506932474" target="_blank"><i class="fab fa-telegram"></i></a>
+           <!--<a href="https://maps.google.com/?q=123+Main+Street" target="_blank"><i class="fas fa-map-marker-alt"></i></a>-->
+        </div> 
+   
+
+    <div class="copyright">
+        &copy; 2026 braingates. All rights reserved.
+    </div>
+</footer>
+
+      <script src="script.js"></script>
+</body>
+</html>

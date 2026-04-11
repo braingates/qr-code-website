@@ -7,7 +7,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1630a5 0%, #4b1185 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -2019,21 +2019,48 @@ footer {
     color: #667eea;
     font-size: 1.5em;
     transition: color 0.3s ease;
+    background-color: rgb(111, 110, 110, 0.3);
+    border-radius: 20px;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    place-content: center;
+    justify-content: center;
+    border: solid blue 1px;
     
 }
 .contact-icons a:hover {
-    color: #764ba2;
+    color: red;
     text-shadow: 0 4px 12px rgba(71, 7, 247, 0.9);
-
+    background-color: #131313;
+    border: solid red 1px;
 }
 .footer-links a {
-    color: #667eea;
+    color: #667fee;
     text-decoration: none;
     margin: 0 10px;
     transition: color 0.3s ease;
+   
 }
 .footer-links a:hover {
     color: #764ba2;
     text-shadow: 0 4px 12px rgba(71, 7, 247, 0.9);
     text-decoration: underline;
+}
+
+footer div a {
+    text-decoration: none;
+    color: rgb(47, 0, 255);
+    transition: color 0.3s ease;
+    
+}
+
+footer div a:hover {
+    text-decoration: underline;
+    color:rgb(64, 64, 220);
+     text-shadow: 0 0px 1px rgba(71, 7, 247, 0.9);
+}
+.copyright {
+    color: #717171;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
