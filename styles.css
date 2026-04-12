@@ -38,7 +38,7 @@
 .nav-container {
     max-width: 1100px;
     margin: auto;
-    padding: 5px 10px;
+    padding: 5px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -429,16 +429,17 @@
         }
 
         .tab-btn {
-            padding: 12px 20px;
+            padding: 6px 20px;
             border: none;
             background: transparent;
             cursor: pointer;
             font-size: 1em;
             font-weight: 600;
-            color: #999;
+            color: #666;
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
             margin-bottom: -2px;
+            
         }
 
         .tab-btn.active {
@@ -448,6 +449,7 @@
 
         .tab-btn:hover {
             color: #667eea;
+            
         }
 
         /* Responsive tabs */
@@ -1999,6 +2001,9 @@ footer {
     text-align: center;
     margin-top: 30px;
 }
+.back-link a button {
+    background-color: red;
+}
 
 .about-section {
     background: #f0f8ff;
@@ -2016,24 +2021,24 @@ footer {
   
 }
 .contact-icons a {
-    color: #667eea;
+    color: white;
     font-size: 1.5em;
     transition: color 0.3s ease;
-    background-color: rgb(111, 110, 110, 0.3);
+    background-color:rgb(4, 4, 129);
     border-radius: 20px;
     width: 32px;
     height: 32px;
     align-items: center;
     place-content: center;
     justify-content: center;
-    border: solid blue 1px;
+    border: none;
     
 }
 .contact-icons a:hover {
     color: red;
     text-shadow: 0 4px 12px rgba(71, 7, 247, 0.9);
     background-color: #131313;
-    border: solid red 1px;
+    border: solid red 2px;
 }
 .footer-links a {
     color: #667fee;
@@ -2063,4 +2068,5 @@ footer div a:hover {
 .copyright {
     color: #717171;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
